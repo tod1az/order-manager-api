@@ -4,7 +4,6 @@ import os
 from models.db import db 
 from routes.tasks import tasks_bp 
 
-
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -16,6 +15,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
 db.init_app(app)
+from models.order import Order
+from models.user import User
+from models.garment import Garment
+from models.design import Design
+from models.item import Item
+
+
 
 # Ruta de inicio
 @app.route("/")
