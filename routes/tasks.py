@@ -1,8 +1,7 @@
 from flask import Blueprint, jsonify,request
-from models import db
-from models import tasks
+from models.db import db
+from models.tasks import Task
 
-Task = tasks.Task
 
 tasks_bp = Blueprint("tasks",__name__)
 

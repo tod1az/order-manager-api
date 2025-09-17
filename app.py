@@ -1,8 +1,8 @@
 from flask import Flask
 from dotenv import load_dotenv
 import os
-from models import db 
-from routes import tasks_bp 
+from models.db import db 
+from routes.tasks import tasks_bp 
 
 
 load_dotenv()

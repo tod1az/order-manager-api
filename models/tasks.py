@@ -11,4 +11,3 @@ class Task(db.Model):
             'done': self.done
         }
 
-    __all__=["Task"] 
