@@ -4,9 +4,9 @@ from models.user import User
 import  bcrypt
 
 
-tasks_bp = Blueprint("tasks",__name__,url_prefix="/users")
+users_bp = Blueprint("tasks",__name__,url_prefix="/users")
 
-@tasks_bp.route("/", methods=["GET"])
+@users_bp.route("/", methods=["GET"])
 def get_users():
     users = User.query.all()
     user_list= []
@@ -14,14 +14,14 @@ def get_users():
         user_list.append(user.to_dict())
     return jsonify(user_list)
 
-@tasks_bp.route("/<int:user_id>", methods=["GET"])
+@users_bp.route("/<int:user_id>", methods=["GET"])
 def get_user_by_id(user_id):
     user = db.get_or_404(User,user_id)
     return jsonify(user.to_dict()),200
 
 
 
-@tasks_bp.route("/", methods=["POST"])
+@users_bp.route("/", methods=["POST"])
 def create_user():
     #TODO validar campos
     data = request.get_json()
@@ -49,7 +49,7 @@ def create_user():
 
 
 
-@tasks_bp.route("/<int:user_id>", methods=["PUT"])
+@users_bp.route("/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
     user = db.get_or_404(User,user_id)
     data = request.get_json()
@@ -65,7 +65,7 @@ def update_user(user_id):
 
 
 
-@tasks_bp.route("/<int:user_id>", methods=["DELETE"])
+@users_bp.route("/<int:user_id>", methods=["DELETE"])
 def delete_user(user_id):
     user = db.get_or_404(User, user_id) 
     db.session.delete(user)

@@ -2,7 +2,7 @@ from flask import Flask
 from dotenv import load_dotenv
 import os
 from models.db import db 
-from routes.tasks import tasks_bp 
+from routes.user import users_bp
 
 load_dotenv()
 
@@ -29,8 +29,7 @@ def home():
     return "Bienvenido a la API de Tareas con Flask"
 
 # Obtener todas las tareas desde la base de datos
-
-app.register_blueprint(tasks_bp)
+app.register_blueprint(users_bp)
 
 
 
