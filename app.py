@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 from models.db import db 
 from routes.user import users_bp
+from extensions import bcrypt
 
 load_dotenv()
 
@@ -15,8 +16,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 
 db.init_app(app)
+bcrypt.init_app(app)
+
 from models.order import Order
-from models.user import User
 from models.garment import Garment
 from models.design import Design
 from models.item import Item

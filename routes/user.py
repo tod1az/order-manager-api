@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify,request
 from models.db import db
 from models.user import User 
-import  bcrypt
+from extensions import bcrypt
 
 
 users_bp = Blueprint("tasks",__name__,url_prefix="/users")
@@ -39,7 +39,7 @@ def create_user():
 
     new_user.email=email 
     new_user.name =name 
-    hashed_password = bcrypt.hashpw(password, bcrypt.gensalt(12))
+    hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
     new_user.password= hashed_password 
     new_user.role = role 
 
@@ -58,7 +58,7 @@ def update_user(user_id):
     password= data.get("password")
     
     if password:
-       user.password = bcrypt.hashpw(password, bcrypt.gensalt(12))
+       user.password = bcrypt.generate_password_hash(password).decode("utf-8")
 
     db.session.commit()
     return jsonify(user.to_dict()), 200
