@@ -12,8 +12,17 @@ class Size(enum.Enum):
 
 class Garment(db.Model):
      id = db.Column(db.Integer, primary_key= True, autoincrement=True)
-     description = db.Column(db.String(255), nullable=False)
+     name = db.Column(db.String(255), nullable=False)
      size = db.Column(db.Enum(Size),nullable=False)
      price = db.Column(db.Integer,nullable=False)
      stock = db.Column(db.Integer,nullable=False)
+
+     def to_dict(self):
+        return{
+            "id":self.id,
+            "description":self.name,
+            "price":self.price ,
+            "size":self.price,
+            "stock":self.stock
+        }
 

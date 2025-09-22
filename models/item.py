@@ -9,6 +9,16 @@ class Item(db.Model):
      design= db.relationship('Design', backref='items')
      garment= db.relationship('Garment', backref='items')
      order= db.relationship('Order', backref='items')
+     
+     def to_dict(self):
+        return{
+            "id" : self.id,
+            "design_id" :self.design_id,
+            "garment_id":self.garment_id ,
+            "order_id" : self.order_id
+        }
+
+
 
     
 
