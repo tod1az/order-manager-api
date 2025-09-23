@@ -10,6 +10,10 @@ class Size(enum.Enum):
     XXL = "XXL"
     XXXL = "3XL"
 
+    @classmethod
+    def to_dict(cls):
+      return{ size.name: size.value for size in cls }
+
 class Garment(db.Model):
      id = db.Column(db.Integer, primary_key= True, autoincrement=True)
      name = db.Column(db.String(255), nullable=False)

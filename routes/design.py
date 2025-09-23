@@ -1,9 +1,6 @@
 from flask import Blueprint, jsonify,request
-from models import design
 from models.db import db
 from models.design import Design
-from extensions import bcrypt
-
 
 designs_bp = Blueprint("designs",__name__,url_prefix="/designs")
 
