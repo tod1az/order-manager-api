@@ -28,7 +28,7 @@ from models.item import Item
 # Ruta de inicio
 @app.route("/")
 def home():
-    return "Bienvenido a la API de Tareas con Flask"
+    return "Bienvenido a la API de gestor de ordenes"
 
 # Obtener todas las tareas desde la base de datos
 app.register_blueprint(users_bp)
