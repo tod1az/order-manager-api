@@ -30,7 +30,7 @@ def create_design():
         new_design = Design()
         new_design.name = name 
         new_design.price = price
-        new_design.image = image
+        new_design.images = image
 
         db.session.add(new_design)
         db.session.commit()
@@ -51,7 +51,7 @@ def update_design(design_id):
             raise Exception("At least one atributte is required")
         design.name= name if name else design.name
         design.price= name if name else design.price
-        design.image= image if image else design.image
+        design.images= image if image else design.images
 
         db.session.commit()
         return jsonify(design.to_dict()), 200
