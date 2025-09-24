@@ -6,13 +6,14 @@ class OrderStatus(enum.Enum):
     pending = "pending"
     approved = "approved"
     rejected = "rejected"
+    sent = "sent"  
 
 class Order(db.Model):
      id = db.Column(db.Integer, primary_key= True, autoincrement=True)
      status = db.Column(db.Enum(OrderStatus), default=OrderStatus.pending)
-     receipt = db.Column(db.String(255))
-     created_at = db.Column(db.DateTime, default=datetime.now().timestamp(), nullable=False)
-     updated_at = db.Column(db.DateTime, default=datetime.now().timestamp(), onupdate=datetime.now().timestamp(), nullable=False)
+     receipt = db.Column(db.String(255), default="")
+     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now().timestamp(), nullable=False)
 
      user_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
      user = db.relationship('User', backref='orders')
