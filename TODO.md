@@ -7,3 +7,5 @@ Prenda → Garment (mejor que Cloth porque se usa en el contexto de ropa especí
 Diseño → Design
 
 Item → OrderItem (queda más claro que pertenece al pedido)
+
+Test github origin
