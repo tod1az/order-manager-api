@@ -1,5 +1,4 @@
-from flask import Blueprint, g, jsonify,request
-from models import garment_variant
+from flask import Blueprint,  jsonify,request
 from models.db import db
 from models.garment_variant import GarmentVariant
 
