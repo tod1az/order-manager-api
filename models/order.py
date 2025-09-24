@@ -13,6 +13,7 @@ class Order(db.Model):
      receipt = db.Column(db.String(255))
      created_at = db.Column(db.DateTime, default=datetime.now().timestamp(), nullable=False)
      updated_at = db.Column(db.DateTime, default=datetime.now().timestamp(), onupdate=datetime.now().timestamp(), nullable=False)
+
      user_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
      user = db.relationship('User', backref='orders')
      

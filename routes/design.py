@@ -24,13 +24,13 @@ def create_design():
         data = request.get_json()
         name  = data.get("name")
         price = data.get("price")
-        image = data.get("image")
-        if not name or not price or not image:
+        images = data.get("images")
+        if not name or not price or not images:
             raise Exception("Missing data")
         new_design = Design()
         new_design.name = name 
         new_design.price = price
-        new_design.images = image
+        new_design.images = images
 
         db.session.add(new_design)
         db.session.commit()
@@ -50,7 +50,7 @@ def update_design(design_id):
         if not name and not price and not image:
             raise Exception("At least one atributte is required")
         design.name= name if name else design.name
-        design.price= name if name else design.price
+        design.price= price if price else design.price
         design.images= image if image else design.images
 
         db.session.commit()
