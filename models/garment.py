@@ -8,5 +8,6 @@ class Garment(db.Model):
         return{
             "id":self.id,
             "name":self.name,
+            "variants":[v.to_dict() for v in self.garment_variants]
        }
 
