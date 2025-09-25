@@ -98,3 +98,16 @@ def add_item_to_order(order_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+@orders_bp.route("/<int:order_id>/recipt", methods=["PUT"])
+def upload_receipt(order_id):
+    try:
+        order = db.get_or_404(Order, order_id)
+        data = request.get_json()
+        receipt = data.get("receipt")
+        if receipt:
+            order.receipt = receipt
+        db.session.commit()
+        return jsonify(order.to_dict()), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400    
+
