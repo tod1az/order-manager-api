@@ -8,24 +8,28 @@ from routes.garment import garments_bp
 from routes.garment_variant import garments_variant_bp 
 from routes.order import orders_bp 
 from routes.item import items_bp
+from routes.auth import auth_bp
 from extensions import bcrypt
+from flask_jwt_extended import JWTManager
 
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
 app = Flask(__name__)
 
+app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+app.config["JWT_COOkIE_SECURE"] = False
+app.config["JWT_HTTPONLY"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-
+jwt = JWTManager(app)
 db.init_app(app)
 bcrypt.init_app(app)
 
-from models.item import Item
-
-# Ruta de inicio
 @app.route("/")
 def home():
     return "Bienvenido a la API de gestor de ordenes"
@@ -36,6 +40,7 @@ app.register_blueprint(garments_bp)
 app.register_blueprint(garments_variant_bp)
 app.register_blueprint(orders_bp)
 app.register_blueprint(items_bp)
+app.register_blueprint(auth_bp)
 
 
 

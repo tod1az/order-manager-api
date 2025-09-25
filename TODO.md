@@ -1,4 +1,4 @@
-- [ ] Arreglar las respuestas para que tengan la info necesaria.
+- [✅] Arreglar las respuestas para que tengan la info necesaria.
   - Design
     - [✅] search filtrada por nombre
     - [✅] paginacion
@@ -12,3 +12,5 @@
     - [✅] debe incluir fecha de pedido
 - [ ] Tal vez, agregar un motivo de rechazo o un mensaje.
 - [ ] Manejar Auth.
+  - [ ] definir que rutas necesitan auth
+  - [ ] cambiar las id que recibia por body y tomarlas desde la cookie del jwt
