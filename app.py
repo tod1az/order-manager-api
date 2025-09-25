@@ -7,6 +7,7 @@ from routes.design import designs_bp
 from routes.garment import garments_bp
 from routes.garment_variant import garments_variant_bp 
 from routes.order import orders_bp 
+from routes.item import items_bp
 from extensions import bcrypt
 
 load_dotenv()
@@ -34,6 +35,7 @@ app.register_blueprint(designs_bp)
 app.register_blueprint(garments_bp)
 app.register_blueprint(garments_variant_bp)
 app.register_blueprint(orders_bp)
+app.register_blueprint(items_bp)
 
 
 

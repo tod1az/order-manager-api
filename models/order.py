@@ -13,7 +13,7 @@ class Order(db.Model):
      status = db.Column(db.Enum(OrderStatus), default=OrderStatus.pending)
      receipt = db.Column(db.String(255), default="")
      created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now().timestamp(), nullable=False)
+     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
      user_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
      user = db.relationship('User', backref='orders')
@@ -21,9 +21,10 @@ class Order(db.Model):
      def to_dict(self):
         return{
             "id" :self.id,
-            "status" :self.status,
+            "status" :self.status.value,
             "receipt" :self.receipt,
             "created_at" :self.created_at,
-            "user_id":self.user_id
+            "user_id":self.user_id,
+            "items":[ item.to_dict() for item in self.items] 
         }
 
