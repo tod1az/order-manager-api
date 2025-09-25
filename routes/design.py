@@ -6,10 +6,26 @@ designs_bp = Blueprint("designs",__name__,url_prefix="/designs")
 
 @designs_bp.route("/", methods=["GET"])
 def get_designs():
-    #TODO: usar query.paginate 
+    #TODO: usar query.paginate
+    name = request.args.get("name") 
+    per_page = request.args.get("per_page", type=int, default=10) 
+    page = request.args.get("page", type=int, default=1) 
+    print(name)
     try:
-        designs = Design.query.all()
-        return jsonify([u.to_dict() for u in designs])    
+        if name:
+            designs = Design.query.filter(Design.name.ilike(f"%{name}%")).paginate(page=page, per_page=per_page, error_out=True)    
+        else:
+            designs = Design.query.paginate(page=page, per_page=per_page, error_out=True)
+        return jsonify({
+            "designs":[u.to_dict() for u in designs.items],
+            "total": designs.total ,
+            "pages":designs.pages ,
+            "page": designs.page,
+            "has_next":designs.has_next ,
+            "has_prev":designs.has_prev ,
+            "next_page": designs.next_num,
+            "prev_page": designs.prev_num,
+            })    
     except:
         return jsonify({"error":"Somthing went wrong :("}) ,500
 

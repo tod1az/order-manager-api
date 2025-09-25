@@ -10,7 +10,7 @@ class Design(db.Model):
      def to_dict(self):
         return {
             "id":self.id,
-            "description":self.name,
+            "name":self.name,
             "price":self.price,
             "images":self.images
         }

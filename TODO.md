@@ -1,0 +1,3 @@
+- [ ] Arreglar las respuestas para que tengan la info necesaria.
+- [ ] Tal vez, agregar un motivo de rechazo o un mensaje.
+- [ ] Manejar Auth.
