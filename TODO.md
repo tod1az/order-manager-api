@@ -11,6 +11,6 @@
     - [✅] debe incluir nombre del usuario
     - [✅] debe incluir fecha de pedido
 - [ ] Tal vez, agregar un motivo de rechazo o un mensaje.
-- [ ] Manejar Auth.
-  - [ ] definir que rutas necesitan auth
-  - [ ] cambiar las id que recibia por body y tomarlas desde la cookie del jwt
+- [✅] Manejar Auth.
+  - [✅] definir que rutas necesitan auth
+  - [✅] cambiar las id que recibia por body y tomarlas desde la cookie del jwt

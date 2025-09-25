@@ -15,8 +15,12 @@ class Order(db.Model):
      created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
      updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
 
-     user_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-     user = db.relationship('User', backref='orders')
+     user_id= db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+     user = db.relationship(
+         'User',
+          backref=db.backref('orders', cascade='all, delete-orphan'),
+          passive_deletes=True
+          )
      
      def to_dict(self):
         return{

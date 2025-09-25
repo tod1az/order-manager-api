@@ -1,12 +1,12 @@
 from flask import Blueprint, jsonify,request
 from models.db import db
 from models.design import Design
+from routes.utils.auth import admin_required
 
 designs_bp = Blueprint("designs",__name__,url_prefix="/designs")
 
 @designs_bp.route("/", methods=["GET"])
 def get_designs():
-    #TODO: usar query.paginate
     name = request.args.get("name") 
     per_page = request.args.get("per_page", type=int, default=10) 
     page = request.args.get("page", type=int, default=1) 
@@ -35,6 +35,7 @@ def get_design_by_id(design_id):
     return jsonify(design.to_dict()),200
 
 @designs_bp.route("/", methods=["POST"])
+@admin_required()
 def create_design():
     try:
         data = request.get_json()
@@ -56,6 +57,7 @@ def create_design():
 
 
 @designs_bp.route("/<int:design_id>", methods=["PUT"])
+@admin_required()
 def update_design(design_id):
     try:
         design= db.get_or_404(Design,design_id)
@@ -75,6 +77,7 @@ def update_design(design_id):
         return jsonify({"error":str(e)}),400 
 
 @designs_bp.route("/<int:design_id>", methods=["DELETE"])
+@admin_required()
 def delete_design(design_id):
     design = db.get_or_404(Design, design_id) 
     db.session.delete(design)

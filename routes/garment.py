@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify,request
 from models.db import db
 from models.garment import Garment 
+from routes.utils.auth import admin_required
 
 garments_bp = Blueprint("Garments",__name__,url_prefix="/garments")
 
@@ -18,6 +19,7 @@ def get_garment_by_id(garment_id):
     return jsonify(garment.to_dict()),200
 
 @garments_bp.route("/", methods=["POST"])
+@admin_required()
 def create_garment():
     try:
         data = request.get_json()
@@ -35,6 +37,7 @@ def create_garment():
 
 
 @garments_bp.route("/<int:garment_id>", methods=["PUT"])
+@admin_required()
 def update_garment(garment_id):
     try:
         garment= db.get_or_404(Garment,garment_id)
@@ -49,6 +52,7 @@ def update_garment(garment_id):
         return jsonify({"error":str(e)}),400 
 
 @garments_bp.route("/<int:garment_id>", methods=["DELETE"])
+@admin_required()
 def delete_design(garment_id):
     garment= db.get_or_404(Garment, garment_id) 
     db.session.delete(garment)

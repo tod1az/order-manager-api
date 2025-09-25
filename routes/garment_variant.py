@@ -1,12 +1,12 @@
 from flask import Blueprint,  jsonify,request
 from models.db import db
 from models.garment_variant import GarmentVariant
+from routes.utils.auth import admin_required
 
 garments_variant_bp = Blueprint("GarmentsVariant",__name__,url_prefix="/garment-variants")
 
 @garments_variant_bp.route("/", methods=["GET"])
 def get_garments():
-    #TODO: usar query.paginate 
     try:
         garments_variant = GarmentVariant.query.all()
         return jsonify([g.to_dict() for g in garments_variant])    
@@ -19,6 +19,7 @@ def get_garment_by_id(garment_variant_id):
     return jsonify(garment.to_dict()),200
 
 @garments_variant_bp.route("/", methods=["POST"])
+@admin_required()
 def create_garment():
     try:
         data = request.get_json()
@@ -44,6 +45,7 @@ def create_garment():
 
 
 @garments_variant_bp.route("/<int:garment_variant_id>", methods=["PUT"])
+@admin_required()
 def update_garment(garment_variant_id):
     try:
         garment_variant= db.get_or_404(GarmentVariant,garment_variant_id)
@@ -65,6 +67,7 @@ def update_garment(garment_variant_id):
         return jsonify({"error":str(e)}),400 
 
 @garments_variant_bp.route("/<int:garment_variant_id>", methods=["DELETE"])
+@admin_required()
 def delete_design(garment_variant_id):
     garment_variant = db.get_or_404(GarmentVariant, garment_variant_id) 
     db.session.delete(garment_variant)

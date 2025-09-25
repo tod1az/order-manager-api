@@ -1,10 +1,8 @@
 from flask import Blueprint, request, jsonify
-from models.db import db
 from models.user import User
 from extensions import bcrypt   
-from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies, get_jwt
+from flask_jwt_extended import create_access_token, jwt_required, set_access_cookies 
 from datetime import timedelta
-from functools import wraps
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -40,14 +38,3 @@ def logout():
 
 
 
-def admin_required():
-    def decorator(fn):
-        @wraps(fn)
-        @jwt_required()  # verifica que haya JWT válido
-        def wrapper(*args, **kwargs):
-            claims = get_jwt()
-            if claims.get("role") != "admin":
-                return {"msg": "No autorizado"}, 403
-            return fn(*args, **kwargs)
-        return wrapper
-    return decorator 

@@ -6,7 +6,7 @@ class GarmentVariant(db.Model):
      price = db.Column(db.Integer,nullable=False)
      stock = db.Column(db.Integer,nullable=False)
 
-     garment_id= db.Column(db.Integer, db.ForeignKey('garment.id'), nullable=False)
+     garment_id= db.Column(db.Integer, db.ForeignKey('garment.id', ondelete = "CASCADE"), nullable=False )
      garment = db.relationship('Garment', backref='garment_variants')
  
 
