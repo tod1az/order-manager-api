@@ -6,7 +6,6 @@ garments_bp = Blueprint("Garments",__name__,url_prefix="/garments")
 
 @garments_bp.route("/", methods=["GET"])
 def get_garments():
-    #TODO: usar query.paginate 
     try:
         garments = Garment.query.all()
         return jsonify([g.to_dict() for g in garments])    

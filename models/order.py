@@ -25,6 +25,7 @@ class Order(db.Model):
             "receipt" :self.receipt,
             "created_at" :self.created_at,
             "user_id":self.user_id,
-            "items":[ item.to_dict() for item in self.items] 
+            "items":[ item.to_dict() for item in self.items] ,
+            "user": self.user.to_dict() if self.user else None
         }
 

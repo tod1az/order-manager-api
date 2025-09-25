@@ -7,12 +7,19 @@ class User(db.Model):
      role = db.Column(db.String(255), nullable=False)
      password  =db.Column(db.String(255),nullable=False)
      
-     def to_dict(self):
+     def  private_to_dict(self):
         return{
             "id":self.id,
             "email":self.email,
             "name":self.name,
             "role":self.role,
             "password":self.password,
+        }
+     def to_dict(self):
+        return{
+            "id":self.id,
+            "email":self.email,
+            "name":self.name,
+            "role":self.role,
         }
 

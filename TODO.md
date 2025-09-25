@@ -5,10 +5,10 @@
   - Garment
     - [✅] debe incluir las variantes disponibles.
   - Orders
-    - [ ] paginacion
-    - [ ] filtro por estado
-    - [ ] filtro por nombre de usuario
-    - [ ] debe incluir nombre del usuario
-    - [ ] debe incluir fecha de pedido
+    - [✅] paginacion
+    - [✅] filtro por estado
+    - [✅] filtro por nombre de usuario
+    - [✅] debe incluir nombre del usuario
+    - [✅] debe incluir fecha de pedido
 - [ ] Tal vez, agregar un motivo de rechazo o un mensaje.
 - [ ] Manejar Auth.
