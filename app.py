@@ -34,7 +34,7 @@ CORS(
             "origins": ["http://localhost:5173", "https://mi-frontend.com"],
             "methods": ["GET", "POST", "PUT", "DELETE"],
             "allow_headers": ["Content-Type", "Authorization"],
-            "support_credentials": True,
+            "supports_credentials": True,
         }
     },
 )
