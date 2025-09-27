@@ -31,12 +31,12 @@ CORS(
     app,
     resources={
         r"/*": {
-            "origins": ["http://localhost:5173", "https://mi-frontend.com"],
-            "methods": ["GET", "POST", "PUT", "DELETE"],
+            "origins": ["http://localhost:5173"],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
             "allow_headers": ["Content-Type", "Authorization"],
-            "supports_credentials": True,
-        }
+        },
     },
+    supports_credentials=True,
 )
 
 

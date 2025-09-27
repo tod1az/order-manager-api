@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify,request
+from flask import Blueprint, jsonify, request
 from models.db import db
 from models.order import Order
 from models.user import User
@@ -6,17 +6,18 @@ from models.item import Item
 from sqlalchemy import or_
 from flask_jwt_extended import jwt_required
 from routes.utils.orders import get_orders_query, get_orders_query_admin
-from routes.utils.auth import auth_info,admin_required
+from routes.utils.auth import auth_info, admin_required
 
-orders_bp = Blueprint("orders",__name__,url_prefix="/orders")
+orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 
-@orders_bp.route("/", methods=["GET"])
+
+@orders_bp.route("", methods=["GET"])
 @jwt_required()
 def get_orders():
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
-    status = request.args.get('status', None, type=str)
-    q = request.args.get('q', None, type=str)
+    page = request.args.get("page", 1, type=int)
+    per_page = request.args.get("per_page", 10, type=int)
+    status = request.args.get("status", None, type=str)
+    q = request.args.get("q", None, type=str)
     try:
         query = Order.query.join(Order.user)
         query = get_orders_query(query)
@@ -24,31 +25,35 @@ def get_orders():
         if status:
             query = query.filter(Order.status == status)
         result = query.paginate(page=page, per_page=per_page, error_out=False)
-        return jsonify({ 
-            "orders":[g.to_dict() for g in result.items],
-            "total": result.total ,
-            "pages":result.pages ,
-            "page": result.page,
-            "has_next":result.has_next ,
-            "has_prev":result.has_prev ,
-            "next_page": result.next_num,
-            "prev_page": result.prev_num,
-            }),200
-    except Exception as e :
-        return jsonify({"error": str(e)}),500
+        return jsonify(
+            {
+                "orders": [g.to_dict() for g in result.items],
+                "total": result.total,
+                "pages": result.pages,
+                "page": result.page,
+                "has_next": result.has_next,
+                "has_prev": result.has_prev,
+                "next_page": result.next_num,
+                "prev_page": result.prev_num,
+            }
+        ), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @orders_bp.route("/<int:order_id>", methods=["GET"])
 @jwt_required()
 def get_order_by_id(order_id):
     order = db.get_or_404(Order, order_id)
-    return jsonify(order.to_dict()),200
+    return jsonify(order.to_dict()), 200
 
-@orders_bp.route("/", methods=["POST"])
+
+@orders_bp.route("", methods=["POST"])
 @jwt_required()
 def create_order():
     try:
         data = request.get_json()
-        user_id = auth_info().get("id") 
+        user_id = auth_info().get("id")
         new_order = Order()
         new_order.user_id = user_id
 
@@ -68,9 +73,10 @@ def create_order():
 
         return jsonify(new_order.to_dict()), 201
     except Exception as e:
-        return jsonify({"error":f"{str(e)}"}), 400
-    
-@orders_bp.route("/<int:order_id>", methods=["PUT"])    
+        return jsonify({"error": f"{str(e)}"}), 400
+
+
+@orders_bp.route("/<int:order_id>", methods=["PUT"])
 @admin_required()
 def update_order(order_id):
     try:
@@ -83,7 +89,8 @@ def update_order(order_id):
         return jsonify(order.to_dict()), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
-    
+
+
 @orders_bp.route("/<int:order_id>/items", methods=["POST"])
 @jwt_required()
 def add_item_to_order(order_id):
@@ -105,6 +112,7 @@ def add_item_to_order(order_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
+
 @orders_bp.route("/<int:order_id>/recipt", methods=["PUT"])
 @jwt_required()
 def upload_receipt(order_id):
@@ -117,5 +125,4 @@ def upload_receipt(order_id):
         db.session.commit()
         return jsonify(order.to_dict()), 200
     except Exception as e:
-        return jsonify({"error": str(e)}), 400    
-
+        return jsonify({"error": str(e)}), 400
