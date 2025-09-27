@@ -4,6 +4,7 @@ class User(db.Model):
      id = db.Column(db.Integer, primary_key= True, autoincrement=True)
      email = db.Column(db.String(255), nullable=False)
      name = db.Column(db.String(255), nullable=False)
+     lastname = db.Column(db.String(255), nullable=False)
      role = db.Column(db.String(255), nullable=False)
      password  =db.Column(db.String(255),nullable=False)
      
@@ -12,6 +13,7 @@ class User(db.Model):
             "id":self.id,
             "email":self.email,
             "name":self.name,
+            "lastname":self.lastname,
             "role":self.role,
             "password":self.password,
         }
@@ -20,6 +22,7 @@ class User(db.Model):
             "id":self.id,
             "email":self.email,
             "name":self.name,
+            "lastname":self.lastname,
             "role":self.role,
         }
 

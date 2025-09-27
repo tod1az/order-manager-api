@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify,request
 from models.db import db
 from models.user import User 
 from extensions import bcrypt
+from routes.utils.auth import admin_required, auth_info
 
 
 users_bp = Blueprint("users",__name__,url_prefix="/users")
@@ -21,19 +22,20 @@ def get_user_by_id(user_id):
 
 @users_bp.route("/", methods=["POST"])
 def create_user():
-    #TODO: validar campos
     try:
         data = request.get_json()
         email = data.get("email")
         name  = data.get("name")
+        lastname  = data.get("lastname")
         password = data.get("password")
         role = data.get("role", "user")
 
-        if not email or not name or not password:
+        if not email or not name or not password or not lastname:
             raise Exception("Missing data")
         new_user = User()
         new_user.email=email 
         new_user.name =name 
+        new_user.lastname= lastname
         hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
         new_user.password= hashed_password 
         new_user.role = role 
@@ -44,23 +46,26 @@ def create_user():
     except Exception as e:
         return jsonify({"error":f"{str(e)}"}), 400
 
-
 @users_bp.route("/<int:user_id>", methods=["PUT"])
 def update_user(user_id):
     try:
+        request_user = auth_info()
         user = db.get_or_404(User,user_id)
         data = request.get_json()
         name = data.get("name")
+        lastname  = data.get("lastname")
         email = data.get("email")
-        #TODO: checkear que el que hace la request sea admin para autorizar el cambio de rol
         role = data.get("role")
         password = data.get("password")
 
-        if not name and not email and not role and not password:
+        if not name and not email and not role and not password and not lastname:
             raise Exception("At least one atributte is required")
         user.email = email if email else user.email
         user.name= name if name else user.name
-        user.role= role if role else user.role
+        user.lastname= lastname if lastname else user.lastname
+
+        if request_user.get("role") == "admin":
+            user.role= role if role else user.role
         if password:
            user.password = bcrypt.generate_password_hash(password).decode("utf-8")
 
@@ -70,6 +75,7 @@ def update_user(user_id):
         return jsonify({"error":str(e)}),400 
 
 @users_bp.route("/<int:user_id>", methods=["DELETE"])
+@admin_required()
 def delete_user(user_id):
     user = db.get_or_404(User, user_id) 
     db.session.delete(user)
