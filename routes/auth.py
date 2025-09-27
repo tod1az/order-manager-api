@@ -15,7 +15,7 @@ from routes.utils.auth import auth_info
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
 
-@auth_bp.route("/profile")
+@auth_bp.route("/profile", methods=["GET"])
 @jwt_required()
 def get_profile():
     user = auth_info()
@@ -50,7 +50,7 @@ def login():
                 additional_claims=additional_claims,
                 expires_delta=timedelta(days=7),
             )
-            response = jsonify({"message": "Login successful"})
+            response = jsonify(user.to_dict())
             set_access_cookies(response, access_token)
             set_refresh_cookies(response, refresh_token)
             return response, 200
@@ -91,4 +91,5 @@ def refresh():
 def logout():
     response = jsonify({"message": "Logout successful"})
     response.delete_cookie("access_token_cookie")
+    response.delete_cookie("refresh_token_cookie")
     return response, 200
