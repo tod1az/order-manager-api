@@ -43,7 +43,7 @@ def get_design_by_id(design_id):
     return jsonify(design.to_dict()), 200
 
 
-@designs_bp.route("", methods=["POST"])
+@designs_bp.route("/", methods=["POST"])
 @admin_required()
 def create_design():
     try:

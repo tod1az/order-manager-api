@@ -87,7 +87,6 @@ def refresh():
 
 
 @auth_bp.route("/logout", methods=["POST"])
-@jwt_required()
 def logout():
     response = jsonify({"message": "Logout successful"})
     response.delete_cookie("access_token_cookie")

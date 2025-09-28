@@ -19,6 +19,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
 app = Flask(__name__)
+app.url_map.strict_slashes =False
 
 
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
