@@ -33,13 +33,14 @@ def create_garment():
         stock = data.get("stock")
         garment_id = data.get("garment_id")
 
-        if not size or not price or not stock or not garment_id:
+        if not size or  not stock or not garment_id:
             raise Exception("Missing data")
         new_garment_variant = GarmentVariant()
         new_garment_variant.size = size
         new_garment_variant.stock = stock
-        new_garment_variant.price = price
         new_garment_variant.garment_id = garment_id
+        if price:
+            new_garment_variant.price = price
 
         db.session.add(new_garment_variant)
         db.session.commit()

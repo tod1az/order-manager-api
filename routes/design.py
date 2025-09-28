@@ -51,10 +51,14 @@ def create_design():
         name = data.get("name")
         price = data.get("price")
         images = data.get("images")
-        if not name or not price or not images:
+        description= data.get("description")
+        features = data.get("features")
+        if not name or not price or not images or not description or not features:
             raise Exception("Missing data")
         new_design = Design()
         new_design.name = name
+        new_design.description=description
+        new_design.features=features
         new_design.price = price
         new_design.images = images
 

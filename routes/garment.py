@@ -27,10 +27,12 @@ def create_garment():
     try:
         data = request.get_json()
         name = data.get("name")
+        price = data.get("price")
         if not name:
             raise Exception("Missing data")
         new_garment = Garment()
         new_garment.name = name
+        new_garment.price=price 
 
         db.session.add(new_garment)
         db.session.commit()
@@ -46,9 +48,11 @@ def update_garment(garment_id):
         garment = db.get_or_404(Garment, garment_id)
         data = request.get_json()
         name = data.get("name")
-        if not name:
+        price = data.get("price")
+        if not name and not price:
             raise Exception("At least one atributte is required")
-        garment.name = name
+        garment.name = name if name else garment.name
+        garment.price = price
         db.session.commit()
         return jsonify(garment.to_dict()), 200
     except Exception as e:
