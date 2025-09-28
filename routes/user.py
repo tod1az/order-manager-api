@@ -8,7 +8,7 @@ from routes.utils.auth import admin_required, auth_info
 users_bp = Blueprint("users", __name__, url_prefix="/users")
 
 
-@users_bp.route("", methods=["GET"])
+@users_bp.route("/", methods=["GET"])
 def get_users():
     try:
         users = User.query.all()
@@ -23,7 +23,7 @@ def get_user_by_id(user_id):
     return jsonify(user.to_dict()), 200
 
 
-@users_bp.route("", methods=["POST"])
+@users_bp.route("/", methods=["POST"])
 def create_user():
     try:
         data = request.get_json()

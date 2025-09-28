@@ -11,7 +11,7 @@ from routes.utils.auth import auth_info, admin_required
 orders_bp = Blueprint("orders", __name__, url_prefix="/orders")
 
 
-@orders_bp.route("", methods=["GET"])
+@orders_bp.route("/", methods=["GET"])
 @jwt_required()
 def get_orders():
     page = request.args.get("page", 1, type=int)
@@ -48,7 +48,7 @@ def get_order_by_id(order_id):
     return jsonify(order.to_dict()), 200
 
 
-@orders_bp.route("", methods=["POST"])
+@orders_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_order():
     try:

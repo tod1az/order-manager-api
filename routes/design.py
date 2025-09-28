@@ -6,7 +6,7 @@ from routes.utils.auth import admin_required
 designs_bp = Blueprint("designs", __name__, url_prefix="/designs")
 
 
-@designs_bp.route("", methods=["GET"])
+@designs_bp.route("/", methods=["GET"])
 def get_designs():
     name = request.args.get("name")
     per_page = request.args.get("per_page", type=int, default=10)

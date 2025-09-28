@@ -6,7 +6,7 @@ from routes.utils.auth import admin_required
 garments_bp = Blueprint("Garments", __name__, url_prefix="/garments")
 
 
-@garments_bp.route("", methods=["GET"])
+@garments_bp.route("/", methods=["GET"])
 def get_garments():
     try:
         garments = Garment.query.all()
@@ -21,7 +21,7 @@ def get_garment_by_id(garment_id):
     return jsonify(garment.to_dict()), 200
 
 
-@garments_bp.route("", methods=["POST"])
+@garments_bp.route("/", methods=["POST"])
 @admin_required()
 def create_garment():
     try:
