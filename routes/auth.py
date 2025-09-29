@@ -7,6 +7,7 @@ from flask_jwt_extended import (
     jwt_required,
     set_access_cookies,
     set_refresh_cookies,
+    unset_jwt_cookies
 )
 from datetime import timedelta
 
@@ -89,6 +90,5 @@ def refresh():
 @auth_bp.route("/logout", methods=["POST"])
 def logout():
     response = jsonify({"message": "Logout successful"})
-    response.delete_cookie("access_token_cookie")
-    response.delete_cookie("refresh_token_cookie")
+    unset_jwt_cookies(response)
     return response, 200
