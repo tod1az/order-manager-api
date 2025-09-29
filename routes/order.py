@@ -99,11 +99,15 @@ def add_item_to_order(order_id):
         data = request.get_json()
         garment_variant_id = data.get("garment_variant_id")
         design_id = data.get("design_id")
+        unit_price= data.get("unit_price")
+        quantity= data.get("garment_variant_id")
 
         new_item = Item()
         new_item.order_id = order.id
         new_item.garment_variant_id = garment_variant_id
         new_item.design_id = design_id
+        new_item.unit_price=unit_price   
+        new_item.quantity=quantity
 
         db.session.add(new_item)
         db.session.commit()

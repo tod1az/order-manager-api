@@ -2,6 +2,8 @@ from models.db import db
 
 class Item(db.Model):
      id = db.Column(db.Integer, primary_key= True, autoincrement=True)
+     quantity= db.Column(db.Integer,nullable=False)
+     unit_price= db.Column(db.Integer,nullable=False)
      design_id = db.Column(db.Integer, db.ForeignKey('design.id', ondelete = "CASCADE"), nullable=False)
      garment_variant_id= db.Column(db.Integer, db.ForeignKey('garment_variant.id', ondelete = "CASCADE"), nullable=False)
      order_id = db.Column(db.Integer, db.ForeignKey('order.id', ondelete= "CASCADE"),  nullable=False)

@@ -16,6 +16,8 @@ def update_order(item_id):
         data = request.get_json()
         garment_variant_id = data.get("garment_variant_id")
         design_id = data.get("design_id")
+        unit_price= data.get("unit_price")
+        quantity= data.get("quantity")
 
         item.garment_variant_id = garment_variant_id if garment_variant_id else item.garment_variant_id
         item.design_id = design_id if design_id else item.design_id
