@@ -18,5 +18,10 @@ class Design(db.Model):
             "images":self.images,
             "features":self.features
         }
+     def to_dict_for_item(self):
+      return{
+         "images":self.images,
+         "name":self.name,
+      }
 
  

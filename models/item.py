@@ -19,11 +19,9 @@ class Item(db.Model):
      def to_dict(self):
         return{
             "id" : self.id,
-            "design_id" :self.design_id,
-            "garment_variant_id":self.garment_variant_id ,
-            "order_id" : self.order_id,
             "quantity":self.quantity,
-            "unit_price":self.unit_price
+            "unit_price":self.unit_price,
+            "design": self.design.to_dict_for_item()
         }
 
 
