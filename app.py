@@ -24,11 +24,12 @@ app.url_map.strict_slashes =False
 
 app.config["JWT_SECRET_KEY"] = JWT_SECRET_KEY
 app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
-app.config["JWT_COOKIE_SECURE"] = False
+app.config["JWT_COOKIE_SECURE"] = True 
 app.config["JWT_HTTPONLY"] = True
 app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["JWT_COOKIE_CSRF_PROTECT"] = False
+app.config["JWT_COOKIE_SAMESITE"] = "None" 
 
 CORS(
     app,

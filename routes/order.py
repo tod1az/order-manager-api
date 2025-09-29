@@ -62,9 +62,9 @@ def create_order():
 
         items = data.get("items")
         for item in items:
-            print(item.get("design_id"))
-            print(item.get("garment_variant_id"))
             new_item = Item()
+            new_item.quantity = item.get("quantity")
+            new_item.unit_price = item.get("unit_price")
             new_item.order_id = new_order.id
             new_item.garment_variant_id = item.get("garment_variant_id")
             new_item.design_id = item.get("design_id")
