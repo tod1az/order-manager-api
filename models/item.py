@@ -21,7 +21,8 @@ class Item(db.Model):
             "id" : self.id,
             "quantity":self.quantity,
             "unit_price":self.unit_price,
-            "design": self.design.to_dict_for_item()
+            "design": self.design.to_dict_for_item(),
+            "variant": self.garment_variant.to_dict_for_item()
         }
 
 

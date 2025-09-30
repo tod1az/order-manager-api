@@ -13,3 +13,8 @@ class Garment(db.Model):
             "variants":[v.to_dict() for v in self.garment_variants]
        }
 
+     def to_dict_for_item(self):
+         return{
+          "name":self.name
+      }
+

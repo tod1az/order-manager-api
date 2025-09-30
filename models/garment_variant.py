@@ -18,3 +18,9 @@ class GarmentVariant(db.Model):
             "garment_id":self.garment_id
         }
 
+     def to_dict_for_item(self):
+         return{
+            "size":self.size,
+            "garment":self.garment.to_dict_for_item()
+      }
+
